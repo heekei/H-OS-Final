@@ -1,0 +1,15 @@
+{
+  "name": "h-os(final)",
+  "version": "1.0.0",
+  "description": "Final Edition of H-OS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "H-OS(Final)"
+  },
+  "author": "Heekei",
+  "license": "ISC"
+}
