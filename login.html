@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <title>H-OS在线操作系统——登录</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/index.js"></script>
+</head>
+
+<body>
+    <form role="form" id="login-form">
+        <div class="form-group">
+            <span class="icon-user"></span>
+            <label for="username">用户名</label>
+            <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+        </div>
+        <div class="form-group">
+            <span class="icon-lock"></span>
+            <label for="password">密码：</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="密码">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">登录</button>
+        <p id="status" class="text-danger text-center"><i class="icon-warning-sign"></i>用户名或密码错误，请重新输入！</p>
+    </form>
+    <script>
+        $("#login-form").on("submit", function (e) {
+            e.preventDefault()
+            $.post("Module/auth.php", {
+                username:$("#username").val(),
+                password:$("#password").val()
+            },
+            function (data, textStatus, jqXHR) {
+                if(data.res==true){
+                   window.location.href="/"
+                }else{
+                    $("#status").show()
+                    setTimeout(function(){
+                        $("#status").fadeOut()
+                    },3000)
+                }
+            },
+            "json"
+            );
+        })
+    </script>
+</body>
+
+</html>

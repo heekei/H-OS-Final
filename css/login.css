@@ -1,0 +1,29 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #444 url(../images/login-bg-2.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    color: #fff;
+    font-family: "微软雅黑","Microsoft Yahei";
+    font-weight: normal;
+}
+
+#login-form {
+    width: 600px;
+    height: 250px;
+    margin: 50px auto 0 auto;
+    padding: 30px 50px 30px 50px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.5);
+}
+#status{
+    display: none;
+    margin-top: 6px;
+    font-size: 16px;
+}
