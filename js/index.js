@@ -1,6 +1,6 @@
 $(function () {
     $(".main").css("min-height", $(window).height() - $(".navbar-static-top").outerHeight(true))
-    $(".tab-page").css("min-height", $(window).height() - $(".navbar-static-top").outerHeight(true) - 43)
+    // $(".tab-page").css("min-height", $(window).height() - $(".navbar-static-top").outerHeight(true) - 50)
 })
 // 退出登录
 $(function () {
@@ -53,9 +53,9 @@ function iframeBind(target/*, tabCtrl*/) {
     //     console.log($(tabCtrl))
     // }
     //iframe容器高度适应
-    $(".tab-page").css("min-height", $(window).height() - $(".navbar-static-top").outerHeight(true) - 43)
+    $(".tab-page").css("min-height", $(window).height() - $(".navbar-static-top").outerHeight(true) - 52)
     // iframe高度自适应
-    $(target).height($(window).height() - $(".navbar-static-top").outerHeight(true) - 43)
+    $(target).height($(window).height() - $(".navbar-static-top").outerHeight(true) - 52)
 }
 // 设置活跃tab
 function activeTab(index) {
@@ -124,19 +124,17 @@ $(function () {
         var a = $(this).children("a");
         var url = a.attr("href");
         createNewTab(url, a.html())
-        console.log("click")
     })
     var timer;
     $(".main").on("mousedown", ".AppsList li", function (e) {
         var _e = e;
         timer = setTimeout(function () {
             longTap = true;
-            console.log("down")
+            //长按代码
         }, 300)
     })
     $(".main").on("mouseup", ".AppsList li", function (e) {
         clearTimeout(timer)
-        console.log("up")
     })
 })
 

@@ -21,7 +21,7 @@
             Username text CHARACTER SET utf8 COLLATE utf8_general_ci,
             Password text CHARACTER SET utf8 COLLATE utf8_general_ci
         )";
-        mysqli_query($sql,$GLOBALS["con"]);
+        mysqli_query($sql);
         // $sql2 = "CREATE TABLE if not exists ". $pre_name ."_brands 
         // (
         //     BrandID int NOT NULL AUTO_INCREMENT, 

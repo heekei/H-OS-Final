@@ -41,17 +41,20 @@ if($_SESSION["IsLogin"]!==true){
                     <li><a href="#Dashboard"><i class="icon-dashboard icon-large"></i>控制台</a></li>
                     <li><a href="#AppManager"><i class="icon-tasks icon-large"></i>应用管理</a></li>
                     <li><a href="#Setting"><i class="icon-cog icon-large"></i>系统设置</a></li>
+                    <li><a href="#Profile"><i class="icon-user icon-large"></i>个人设置</a></li>
                 </ul>
             </div>
         </nav>
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
-                <!--<li role="presentation" class="active"><a href="#">应用管理</a><i class="icon-remove"></i></li>-->
+                <li role="presentation" class="active"><a href="#">控制台</a><i class="icon-remove"></i></li>
             </ul>
             <div class="tab-pages">
-                <!--<div class="tab-page active">
-                    <iframe src="View/AppManager.php"></iframe>
-                </div>-->
+                <div class="tab-page active">
+                    <?php 
+                        require "View/Dashboard.php"
+                    ?>
+                </div>
             </div>
         </div>
 </div>

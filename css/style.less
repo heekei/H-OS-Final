@@ -96,11 +96,12 @@ body {
     background: #fff;
     // 标签页控制
     .nav-tabs {
-        padding: 10px 20px 0 20px;
+        padding: 10px 20px 0px 20px;
         min-height: 43px;
         li {
-            a {
-                line-height: 0.828571;
+            >a {
+                // line-height: 0.828571;
+                // border-bottom-color: #ddd;
                 img{
                     width: 16px;
                     height: 16px;
@@ -156,11 +157,12 @@ body {
         display: inline-block;
         box-sizing: border-box;
         width: 80px;
-        height: 89px;
-        padding-top: 5px;
+        height: 90px;
+        padding-top: 6px;
         a{
             display: block;
-                text-align: center;
+            text-align: center;
+            text-decoration: none;
             img{
                 // display: 
                 width: 64px;
@@ -174,7 +176,8 @@ body {
             }
         }
         &:hover{
-            box-shadow: 0 0 5px 0px ;
+            border-radius: 5px;
+            box-shadow:inset 0 0 5px 0px ;
         }
     }
 }
