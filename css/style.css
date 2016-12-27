@@ -92,6 +92,10 @@ body {
 .main .nav-tabs li a {
   line-height: 0.828571;
 }
+.main .nav-tabs li a img {
+  width: 16px;
+  height: 16px;
+}
 .main .nav-tabs li .icon-remove {
   display: none;
   position: absolute;
@@ -117,4 +121,38 @@ body {
 }
 .main .tab-pages .tab-page.active {
   display: block;
+}
+.main .toolbar {
+  padding: 10px;
+  border-bottom: 1px solid #e5e5e5;
+}
+.main .toolbar .btn i {
+  margin-right: 5px;
+}
+.AppsList {
+  margin-top: 10px;
+}
+.AppsList li {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 80px;
+  height: 89px;
+  padding-top: 5px;
+}
+.AppsList li a {
+  display: block;
+  text-align: center;
+}
+.AppsList li a img {
+  width: 64px;
+  height: 64px;
+}
+.AppsList li a span {
+  display: block;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.AppsList li:hover {
+  box-shadow: 0 0 5px 0px ;
 }

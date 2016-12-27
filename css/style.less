@@ -94,12 +94,17 @@ body {
     margin: 0 0 0 250px;
     border-left: 1px solid #e7e7e7;
     background: #fff;
+    // 标签页控制
     .nav-tabs {
         padding: 10px 20px 0 20px;
         min-height: 43px;
         li {
             a {
                 line-height: 0.828571;
+                img{
+                    width: 16px;
+                    height: 16px;
+                }
             }
             .icon-remove {
                 display: none;
@@ -117,6 +122,7 @@ body {
             }
         }
     }
+    // 标签页
     .tab-pages {
         .tab-page {
             display: none;
@@ -131,6 +137,44 @@ body {
             &.active {
                 display: block;
             }
+        }
+    }
+    .toolbar{
+        padding: 10px;
+        border-bottom: 1px solid #e5e5e5;
+        .btn{
+            i{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+// 应用列表
+.AppsList{
+    margin-top: 10px;
+    li{
+        display: inline-block;
+        box-sizing: border-box;
+        width: 80px;
+        height: 89px;
+        padding-top: 5px;
+        a{
+            display: block;
+                text-align: center;
+            img{
+                // display: 
+                width: 64px;
+                height: 64px;
+            }
+            span{
+                display: block;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+        }
+        &:hover{
+            box-shadow: 0 0 5px 0px ;
         }
     }
 }

@@ -6,7 +6,7 @@ $(function () {
 $(function () {
     $(".logout").on("click", function () {
         $.post("Module/auth.php", {
-            logout:true
+            logout: true
         },
             function (data, textStatus, jqXHR) {
                 if (data.res == true) {
@@ -80,9 +80,31 @@ function createNewTab(url = "about:blank", title = "新标签页") {
     iframe.src = (url ? url : 'about:blank');
     iframe.security = 'restricted';
     iframe.sandbox = 'allow-same-origin allow-forms allow-scripts';
-    iframeBind(iframe, li);
+    iframeBind(iframe);
     tabpage.appendChild(iframe);
     $(".tab-pages").append(tabpage);
+    var i = $(".tab-pages").children(".tab-page").length - 1;
+    activeTab(i);
+}
+function getSystemPage(url, title) {
+    // 标签
+    var li = document.createElement("li"); li.setAttribute("role", "presentation")
+    var a = document.createElement("a"); a.href = '#'; a.innerHTML = title;
+    var i = document.createElement("i"); i.className = 'icon-remove';
+    li.appendChild(a);
+    li.appendChild(i);
+    $(".nav-tabs").append(li);
+    //标签页
+    var tabpage = document.createElement("div");
+    tabpage.className = "tab-page";
+    $(".tab-pages").append(tabpage);
+    $.ajax({
+        type: "post",
+        url: url,
+        success: function (response) {
+            $(tabpage).append(response);
+        }
+    });
     var i = $(".tab-pages").children(".tab-page").length - 1;
     activeTab(i);
 }
@@ -92,8 +114,29 @@ $(function () {
         e.preventDefault();
         var path = "View/";
         var url = $(this).attr('href').replace("#", "");
-
-        createNewTab(path + url + ".html", $(this)[0].innerText);
+        getSystemPage(path + url + ".php", $(this)[0].innerText);
+    })
+    // 应用管理
+    var longTap = false;
+    $(".main").on("click", ".AppsList li", function (e) {
+        if (longTap === true) return longTap = false;
+        e.preventDefault();
+        var a = $(this).children("a");
+        var url = a.attr("href");
+        createNewTab(url, a.html())
+        console.log("click")
+    })
+    var timer;
+    $(".main").on("mousedown", ".AppsList li", function (e) {
+        var _e = e;
+        timer = setTimeout(function () {
+            longTap = true;
+            console.log("down")
+        }, 300)
+    })
+    $(".main").on("mouseup", ".AppsList li", function (e) {
+        clearTimeout(timer)
+        console.log("up")
     })
 })
 

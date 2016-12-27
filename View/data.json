@@ -1,0 +1,25 @@
+{
+    "apps": [
+        {
+            "app_id": 10001,
+            "name": "webqq",
+            "title": "腾讯QQ",
+            "url": "http://w.qq.com/",
+            "icon": "images/qq.png"
+        },
+        {
+            "app_id": 10002,
+            "name": "Calculator",
+            "title": "计算器",
+            "url": "http://cal.supfree.net/cal.html",
+            "icon": "http://img.supfree.net/ico/cal.png"
+        },
+        {
+            "app_id": 10003,
+            "name": "NeteaseMusic",
+            "title": "网易云音乐",
+            "url": "http://music.163.com",
+            "icon": "images/163music.jpg"
+        }
+    ]
+}

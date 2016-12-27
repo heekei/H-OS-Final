@@ -26,7 +26,7 @@ if($_SESSION["IsLogin"]!==true){
     <div class="wraper">
         <nav class="navbar navbar-default navbar-static-top" style="margin-bottom: 0;">
             <div class="navbar-header">
-                <a class="navbar-brand" href="">H-OS在线操作系统</a>
+                <a class="navbar-brand" href="javascript:void(0);">H-OS在线操作系统</a>
             </div>
             <div class="hd-user">
                 <div class="avatar"><img src="images/avatar.jpg" alt=""></div>
@@ -46,12 +46,12 @@ if($_SESSION["IsLogin"]!==true){
         </nav>
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#">应用管理</a><i class="icon-remove"></i></li>
+                <!--<li role="presentation" class="active"><a href="#">应用管理</a><i class="icon-remove"></i></li>-->
             </ul>
             <div class="tab-pages">
-                <div class="tab-page active">
-                    <iframe src="View/AppManager.html"></iframe>
-                </div>
+                <!--<div class="tab-page active">
+                    <iframe src="View/AppManager.php"></iframe>
+                </div>-->
             </div>
         </div>
 </div>
