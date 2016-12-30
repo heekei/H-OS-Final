@@ -1,6 +1,11 @@
 <?php
-    $url = "http://guxfs.com"; 
-    $contents = file_get_contents($url);
-    $getcontent = iconv("gb2312", "utf-8",$contents); 
-    echo $contents;
- ?>
+if(session_status()!=2){
+    session_start();
+}
+if($_SESSION["IsLogin"]!=true) {
+    header("Location: /login.html");
+}
+?>
+<?php
+    echo "Hello Dashboard";
+?>

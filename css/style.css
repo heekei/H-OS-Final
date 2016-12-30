@@ -5,6 +5,9 @@ li {
 body {
   background-color: #f8f8f8;
 }
+[id^=status-] {
+  display: none;
+}
 .wraper {
   width: 100%;
 }

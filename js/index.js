@@ -6,7 +6,7 @@ $(function () {
 $(function () {
     $(".logout").on("click", function () {
         $.post("Module/auth.php", {
-            logout: true
+            method: "logout"
         },
             function (data, textStatus, jqXHR) {
                 if (data.res == true) {
@@ -135,6 +135,10 @@ $(function () {
     })
     $(".main").on("mouseup", ".AppsList li", function (e) {
         clearTimeout(timer)
+    })
+
+    $(document).on("focus","input[type=password]",function(){
+        $(this).val("");
     })
 })
 

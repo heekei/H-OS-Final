@@ -31,7 +31,7 @@ if($_SESSION["IsLogin"]!==true){
             <div class="hd-user">
                 <div class="avatar"><img src="images/avatar.jpg" alt=""></div>
                 <div class="uname">
-                    <a class="uname-name" href="#"><?php echo $_SESSION["UserName"]?></a>
+                    <a class="uname-name" href="#"><?php echo $_SESSION["Nickname"]?></a>
                     <span class="caret"></span>
                 </div>
                 <span class="logout icon-power-off icon-2x"></span>
@@ -41,7 +41,7 @@ if($_SESSION["IsLogin"]!==true){
                     <li><a href="#Dashboard"><i class="icon-dashboard icon-large"></i>控制台</a></li>
                     <li><a href="#AppManager"><i class="icon-tasks icon-large"></i>应用管理</a></li>
                     <li><a href="#Setting"><i class="icon-cog icon-large"></i>系统设置</a></li>
-                    <li><a href="#Profile"><i class="icon-user icon-large"></i>个人设置</a></li>
+                    <li><a href="#Profile"><i class="icon-user icon-large"></i>个人资料</a></li>
                 </ul>
             </div>
         </nav>

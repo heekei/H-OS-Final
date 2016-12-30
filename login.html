@@ -25,13 +25,14 @@
             <label for="password">密码：</label>
             <input type="password" class="form-control" name="password" id="password" placeholder="密码">
         </div>
-        <button type="submit" class="btn btn-primary btn-block">登录</button>
-        <p id="status" class="text-danger text-center"><i class="icon-warning-sign"></i>用户名或密码错误，请重新输入！</p>
+        <button type="submit" class="btn btn-primary">登录</button><a style="color:#fff;" href="reg.html">什么？你还没有帐号？那还不快点注册！</a>
+        <p id="status" class="text-danger text-center"><i class="icon-remove"></i>用户名或密码错误，请重新输入！</p>
     </form>
     <script>
         $("#login-form").on("submit", function (e) {
             e.preventDefault()
             $.post("Module/auth.php", {
+                method:"login",
                 username:$("#username").val(),
                 password:$("#password").val()
             },

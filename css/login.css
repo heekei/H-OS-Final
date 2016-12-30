@@ -14,9 +14,9 @@ body {
     font-weight: normal;
 }
 
-#login-form {
+#login-form,#reg-form {
     width: 600px;
-    height: 250px;
+    /*height: 250px;*/
     margin: 50px auto 0 auto;
     padding: 30px 50px 30px 50px;
     border-radius: 8px;
@@ -26,4 +26,7 @@ body {
     display: none;
     margin-top: 6px;
     font-size: 16px;
+}
+[id^=status-]{
+    display: none;
 }

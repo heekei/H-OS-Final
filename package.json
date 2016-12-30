@@ -1,6 +1,6 @@
 {
   "name": "h-os(final)",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Final Edition of H-OS",
   "main": "index.js",
   "scripts": {
