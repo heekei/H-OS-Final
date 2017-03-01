@@ -32,8 +32,9 @@ $(function () {
         li.remove();
         tabpages.eq(i).remove();
     })
-    // 拖拽
-    var srcElm, tarElm;
+    // 标签页拖拽
+    var srcElm,//拖拽标签
+        tarElm;//目标标签
     $(".nav-tabs").on("dragstart", "li", function (e) {
         srcElm = $(this);
     });
@@ -57,7 +58,11 @@ function iframeBind(target/*, tabCtrl*/) {
     // iframe高度自适应
     $(target).height($(window).height() - $(".navbar-static-top").outerHeight(true) - 52)
 }
-// 设置活跃tab
+/**
+ * 设置活跃tab
+ * 
+ * @param {number} index 标签页序号
+ */
 function activeTab(index) {
     var i = index;
     $(".nav-tabs li").removeClass("active").eq(i).addClass("active");
@@ -86,6 +91,13 @@ function createNewTab(url = "about:blank", title = "新标签页") {
     var i = $(".tab-pages").children(".tab-page").length - 1;
     activeTab(i);
 }
+
+/**
+ * 获取系统视图
+ * 
+ * @param {string} url 视图地址
+ * @param {string} title 生成标签页标题
+ */
 function getSystemPage(url, title) {
     // 标签
     var li = document.createElement("li"); li.setAttribute("role", "presentation")
@@ -105,8 +117,8 @@ function getSystemPage(url, title) {
             $(tabpage).append(response);
         }
     });
-    var i = $(".tab-pages").children(".tab-page").length - 1;
-    activeTab(i);
+    var idx = $(".tab-pages").children(".tab-page").length - 1;
+    activeTab(idx);
 }
 $(function () {
     // 左侧导航栏
@@ -137,7 +149,7 @@ $(function () {
         clearTimeout(timer)
     })
 
-    $(document).on("focus","input[type=password]",function(){
+    $(document).on("focus", "input[type=password]", function () {
         $(this).val("");
     })
 })

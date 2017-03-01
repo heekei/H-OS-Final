@@ -10,53 +10,58 @@
     <link rel="stylesheet" href="css/login.css">
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+    <!--<script src="js/index.js"></script>-->
 </head>
 
 <body>
-    <form role="form" id="reg-form">
-        <div class="form-group">
-            <label for="">用户名</label>
-            <input type="text" class="form-control" id="Username" required>
-        </div>
-        <div class="form-group">
-            <label for="">昵称</label>
-            <input type="text" class="form-control" id="Nickname" required>
-        </div>
-        <div class="form-group">
-            <label for="">密码</label>
-            <input type="password" class="form-control" id="Password" required>
-        </div>
-        <div class="form-group">
-            <label for="">邮箱</label>
-            <input type="email" class="form-control" id="Email" required>
-        </div>
-        <button type="submit" class="btn btn-primary btn-block">注册</button>
-        <p id="status-failed" class="text-danger text-center"><i class="icon-remove"></i>注册失败！</p>
-        <p id="status-succeed" class="text-success text-center"><i class="icon-ok"></i>注册成功，3秒后跳转登录页面</p>
-    </form>
+<form role="form" id="reg-form">
+    <div class="form-group">
+        <label for="">用户名</label>
+        <input type="text" class="form-control" id="Username" required>
+    </div>
+    <div class="form-group">
+        <label for="">昵称</label>
+        <input type="text" class="form-control" id="Nickname" required>
+    </div>
+    <div class="form-group">
+        <label for="">密码</label>
+        <input type="password" class="form-control" id="Password" required>
+    </div>
+    <div class="form-group">
+        <label for="">邮箱</label>
+        <input type="email" class="form-control" id="Email" required>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">注册</button>
+    <p id="status-failed" class="text-danger text-center"><i class="icon-remove"></i>注册失败！</p>
+    <p id="status-succeed" class="text-success text-center"><i class="icon-ok"></i>注册成功，3秒后跳转登录页面</p>
+</form>
     <script>
         $("#reg-form").on("submit", function (e) {
-            e.preventDefault()
+            e.preventDefault();//阻止浏览器默认事件
+            //使用jQuery发起ajax请求
+            //请求方法为post
+            //地址：Module/auth.php
             $.post("Module/auth.php", {
+                //传入服务器的四个参数
                 method: "reg",
-                username: $("#Username").val(),
-                password: $("#Password").val(),
-                email: $("#Email").val(),
-                nickname: $("#Nickname").val()
+                username: $("#Username").val(),//用户名输入框的值
+                password: $("#Password").val(),//密码输入框的值
+                email: $("#Email").val(),//邮箱输入框的值
+                nickname: $("#Nickname").val()//昵称输入框的值
             },
                 function (data, textStatus, jqXHR) {
-                    if (data.res == true) {
-                        $("#status-succeed").show()
+                    if (data.res == true) {//如果res为true，注册成功
+                        $("#status-succeed").show();//显示注册成功提示
                         setTimeout(function () {
-                            $("#status-succeed").fadeOut()
-                            window.location.href= "/login.html"
+                            $("#status-succeed").fadeOut();//提示在三秒后隐藏
+                            window.location.href= "/login.html";//并跳转到登录页
                         }, 3000)
-                    } else {
-                        $("#status-failed").show()
-                        $("#status-failed").html(data.text)
+                    }
+                    else {//注册失败
+                        $("#status-failed").show();//显示错误提示
+                        $("#status-failed").html(data.text)//设置错误提示文本为服务器返回的错误提示
                         setTimeout(function () {
-                            $("#status-failed").fadeOut()
+                            $("#status-failed").fadeOut();//错误提示在3秒后逐渐隐藏
                         }, 3000)
                     }
                 },

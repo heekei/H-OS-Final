@@ -1,6 +1,9 @@
-<?php 
+<?php
+//输出header
 header("Content-type: application/json ;charset=utf-8");
+//开启 session
 session_start();
+//注销登录
 if($_POST["method"]=="logout"){
     $_SESSION["IsLogin"]=false;
     unset($_SESSION["UID"]);
@@ -12,25 +15,20 @@ if($_POST["method"]=="logout"){
     echo json_encode(array("res"=>true));
     exit;
 }
-// 引入配置文件
+//引入配置文件
 require "config.php";
-// 连接数据库
+//连接数据库
 $con =new mysqli($server_URL,$user_name,$pwd,$db_name);
+//如果连接数据库失败，返回错误。
 if ($con->connect_error){
-    die('Could not connect: ' . mysqli_error());
+    die('Could not connect: ' . mysqli_error($con));
 }
-// else {
-//     mysqli_query("set character set 'utf8'");//读库 
-//     mysqli_query("set names 'utf8'");//写库
-//     mysqli_query("set character_set_client=utf8");
-//     mysqli_query("set character_set_results=utf8");
-// }
-// 引入数据库操作函数
+//引入数据库操作函数
 require "funcs.php";
 //创建数据表，
 create_table($pre_name);
 
-// 登录
+//登录
 if($_POST["method"]=="login"){
     $IsLogin = doLogin($_POST["username"],$_POST["password"]);//jsonString
     $arr = json_decode($IsLogin,true);//jsonString -> array
@@ -78,15 +76,15 @@ if($_POST["method"]=="updateApps"){
                 "icon"=>$_POST["app_icon"]
             );
     $AppJson = json_encode($AppArr);
-    // $resJson = updateJson()
     $serverJsonStr = $_SESSION["Json"];//服务器端json字符串
     $clientJsonArr = json_decode($serverJsonStr,true);//服务器端json字符串转换为数组
-    // $clientAppsArr = $clientJsonArr["apps"];//取apps键
     array_push($clientJsonArr["apps"],$AppArr);//插入新数据
-    
     $clientJsonStr = json_encode($clientJsonArr);
-    // $resUpdateJson = updateJson($clientJsonStr);
-    $resUpdateJson = updateJson(urlencode($clientJsonStr));//url转码
+    $resUpdateJson = updateApp(urlencode($clientJsonStr));//url转码
     echo $resUpdateJson;
+}
+//更新系统设置
+if($_POST["method"]=="updateSetting"){
+    
 }
 ?>

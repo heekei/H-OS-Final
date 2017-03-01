@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/login.css">
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/index.js"></script>
+    <!--<script src="js/index.js"></script>-->
 </head>
 
 <body>
@@ -18,35 +18,41 @@
         <div class="form-group">
             <span class="icon-user"></span>
             <label for="username">用户名</label>
-            <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名">
+            <input type="text" class="form-control" name="username" id="username" placeholder="请输入用户名" required>
         </div>
         <div class="form-group">
             <span class="icon-lock"></span>
             <label for="password">密码：</label>
-            <input type="password" class="form-control" name="password" id="password" placeholder="密码">
+            <input type="password" class="form-control" name="password" id="password" placeholder="密码" required>
         </div>
-        <button type="submit" class="btn btn-primary">登录</button><a style="color:#fff;" href="reg.html">什么？你还没有帐号？那还不快点注册！</a>
+        <button type="submit" class="btn btn-primary">登录</button>
+        <a style="color:#fff;" href="reg.html">什么？你还没有帐号？那还不快点注册！</a>
         <p id="status" class="text-danger text-center"><i class="icon-remove"></i>用户名或密码错误，请重新输入！</p>
     </form>
     <script>
         $("#login-form").on("submit", function (e) {
-            e.preventDefault()
+            e.preventDefault();//阻止浏览器默认事件
+            //使用jQuery发起ajax请求
+            //请求方法为post
+            //地址：Module/auth.php
             $.post("Module/auth.php", {
+                //传入服务器的三个参数
                 method:"login",
-                username:$("#username").val(),
-                password:$("#password").val()
+                username:$("#username").val(),//用户名输入框的值
+                password:$("#password").val()//密码输入框的值
             },
             function (data, textStatus, jqXHR) {
-                if(data.res==true){
-                   window.location.href="/"
-                }else{
-                    $("#status").show()
+                if(data.res==true){//如果res为true
+                   window.location.href="/";//跳转到首页
+                }
+                else{
+                    $("#status").show();//显示错误提示
                     setTimeout(function(){
-                        $("#status").fadeOut()
+                        $("#status").fadeOut()//错误提示在3秒后逐渐隐藏
                     },3000)
                 }
             },
-            "json"
+            "json"//返回值格式为json
             );
         })
     </script>

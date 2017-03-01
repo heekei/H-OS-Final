@@ -5,14 +5,7 @@
     function convCN($str){
         return utf8_decode($str);
     }
-    /** 
-    * create_table  
-    * 函数的含义说明 
-    * 
-    * @access public 
-    * @param string $pre_name 表前缀
-    * @return void
-    */
+    //创建表
     function create_table($pre_name){
         $sql = "CREATE TABLE IF NOT EXISTS `hos_users` (
                 `ID` int(11) NOT NULL AUTO_INCREMENT,
@@ -24,6 +17,7 @@
         // mysqli_query($sql);
         $GLOBALS["con"]->query($sql);
     }
+    //登录验证
     function doLogin($uname,$pwd){
         $tname = $GLOBALS["users"];
         $sql = "SELECT * FROM `$tname` where Username='$uname' and Password='$pwd'";
@@ -42,7 +36,7 @@
         $GLOBALS["con"]->close();
         return json_encode(array("res"=>$res,"data"=>$p));
     }
-    
+    // 注册用户
     function regUser($Username,$Password,$Email,$Nickname/*,$Json*/){
         $tname = $GLOBALS["users"];
         $sql = "SELECT * FROM `$tname` where Username='$Username'";
@@ -55,12 +49,12 @@
             $tname= $GLOBALS["users"];
             $sql = "INSERT INTO `$tname`(`ID`, `Username`, `Password` , `Email` , `Nickname`,`Json`) VALUES (NULL,'$Username', '$Password', '$Email' ,'$Nickname','')";
             $result = $GLOBALS["con"]->query($sql);
-            $arr=array("res"=>$result,"text"=>mysqli_error());
+            $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
             $jsonStr =json_encode($arr);
             return $jsonStr;
         }
-
     }
+    // 更新用户资料
     function updateUser($UID,$Username,$Password,$Email,$Nickname/*,$Json*/){
         $tname= $GLOBALS["users"];
         $sql = "UPDATE `$tname` 
@@ -77,12 +71,12 @@
             $_SESSION["Nickname"]=$Nickname;//记录昵称
             // $_SESSION["Json"]=$Json;
         }
-        $arr=array("res"=>$result,"text"=>mysqli_error());
+        $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
         $jsonStr =json_encode($arr);
         return $jsonStr;
     }
-
-    function updateJson($Json)
+    // 更新应用信息
+    function updateApp($Json)
     {
         $UID = $_SESSION["UID"];
         $tname = $GLOBALS["users"];
@@ -95,25 +89,18 @@
         $jsonStr =json_encode($arr);
         return $jsonStr;
     }
-    // function delProductOrBrandById($key,$id,$IsEcho){
-    //     switch ($key) {
-    //         case 'product':
-    //             $tname= $GLOBALS["t_products"];
-    //             $sql="DELETE FROM `".$tname."` WHERE `PID`=".$id;
-    //             break;
-    //         case 'brand':
-    //             $tname= $GLOBALS["t_brands"];
-    //             $sql="DELETE FROM `".$tname."` WHERE `BrandID`=".$id;
-    //             break;
-    //         default:
-    //             return false;
-    //             break;
-    //     }
-    //     $result = mysql_query($sql,$GLOBALS["con"]);
-    //     $arr=array("status"=>$result,"text"=>mysql_error());
-    //     $jsonStr =json_encode($arr);
-    //     if($IsEcho!=false)
-    //         echo $jsonStr;
-    //     return $jsonStr;
-    // }
+    // 更新系统设置
+    function updateSystemsetting($Json)
+    {
+        $UID = $_SESSION["UID"];
+        $tname = $GLOBALS["users"];
+        $sql = "UPDATE `$tname` SET `Systemsetting`='$Json' WHERE `ID`= $UID";
+        $result = $GLOBALS["con"]->query($sql);
+        if($result==true){
+            $_SESSION["Systemsetting"]=urldecode($Json);//url解码
+        }
+        $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
+        $jsonStr =json_encode($arr);
+        return $jsonStr;
+    }
 ?>
