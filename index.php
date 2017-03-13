@@ -33,7 +33,7 @@ if($_SESSION["IsLogin"]!==true){
             <div class="hd-user">
                 <div class="avatar"><img src="images/avatar.jpg" alt=""></div>
                 <div class="uname">
-                    <a class="uname-name" href="#"><?php echo $_SESSION["Nickname"]?></a>
+                    <a class="uname-name" href="#"><?php echo urldecode($_SESSION["Nickname"])?></a>
                     <span class="caret"></span>
                 </div>
                 <span class="logout icon-power-off icon-2x"></span>
