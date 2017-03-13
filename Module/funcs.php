@@ -12,6 +12,8 @@
                 `Username` text,
                 `Password` text,
                 `Email` text,
+                `Nickname` text,
+                `Json` text,
                 PRIMARY KEY (`ID`)
                 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3";
         // mysqli_query($sql);
