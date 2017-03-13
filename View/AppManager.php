@@ -64,7 +64,7 @@ if($_SESSION["IsLogin"]!==true) {
                     $.get("API/get.php",function(data){
                         if(!data.res){
                             $(".AppsList").html("")
-                            var JsonObj = JSON.parse(data)||{apps:[]};
+                            var JsonObj = JSON.parse(data||"{\"apps\":[]}");
                             window.AppList = JsonObj.apps;  
                             context.init({preventDoubleContext: false});
                             for(var i = 0;i<JsonObj.apps.length;i++){

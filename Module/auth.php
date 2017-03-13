@@ -62,7 +62,7 @@ if($_POST["method"]=="update"){
                     $_POST["username"]?$_POST["username"]:$_SESSION["Username"],
                     $_POST["password"]?$_POST["password"]:$_SESSION["Password"],
                     $_POST["email"]?$_POST["email"]:$_SESSION["Email"],
-                    $_POST["nickname"]?$_POST["nickname"]:$_SESSION["Nickname"]
+                    $_POST["nickname"]?urlencode($_POST["nickname"]):urlencode($_SESSION["Nickname"])
                 );
     echo $resUpdate;
 }
