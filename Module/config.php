@@ -10,6 +10,6 @@
      $GLOBALS["db_name"] = "hos";
      //设置表名前缀
      $GLOBALS["pre_name"] = "hos";
-     //产品表名
+     //用户表名
      $GLOBALS["users"] = $pre_name . "_users";
  ?>
