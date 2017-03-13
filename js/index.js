@@ -140,6 +140,7 @@ $(function () {
     var timer;
     $(".main").on("mousedown", ".AppsList li", function (e) {
         var _e = e;
+        var app = $(this);
         timer = setTimeout(function () {
             longTap = true;
             //长按代码

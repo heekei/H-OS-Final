@@ -60,6 +60,68 @@ if($_SESSION["IsLogin"]!==true) {
                     <button type="button" class="btn btn-primary">添加</button>
                 </div>-->
                 <script>
+                    // window.AppList =[];
+                    $.get("API/get.php",function(data){
+                        if(!data.res){
+                            $(".AppsList").html("")
+                            var JsonObj = JSON.parse(data)||{apps:[]};
+                            window.AppList = JsonObj.apps;  
+                            context.init({preventDoubleContext: false});
+                            for(var i = 0;i<JsonObj.apps.length;i++){
+                                $(".AppsList").append("<li data-id='"+JsonObj.apps[i].app_id+"' >"+
+                                        "<a href='" + JsonObj.apps[i].url +"'>"+
+                                            "<img src='"+ JsonObj.apps[i].icon +"' />"+
+                                            "<span>"+ JsonObj.apps[i].title +"</span>"+
+                                        "</a>"+
+                                    "</li>")
+                            }
+                            context.attach('.AppsList li', {
+                                id:"AppsListContextMenu",
+                                data:[
+                                    /*{
+                                        header:"菜单"
+                                    },*/
+                                    {
+                                        icon: 'icon-edit',
+                                        text: '编辑',
+                                        className:"edddd",
+                                        action: function(e, selector) { 
+                                            console.log(selector.data("id")); 
+                                        }
+                                    },
+                                    {
+                                        icon: 'icon-remove',
+                                        text: '删除',
+                                        action: function(e, selector) { 
+                                            AppList.filter(function (element, index, src) {
+                                                // console.log(element, index)
+                                                if (selector.data("id") == element.app_id) {
+                                                    src.splice(index, 1);
+                                                    $.post("Module/auth.php", {
+                                                        method: "updateApps",
+                                                        appjson: {
+                                                            apps: window.AppList
+                                                        }
+                                                    },
+                                                    function (data, textStatus, jqXHR) {
+                                                        if (data.res == true) {
+                                                            $.get("View/AppManager.php", function (data) {
+                                                                $(".AppsList").closest(".tab-page").html(data);
+                                                            })
+                                                        }
+                                                    },
+                                                    "json"
+                                                    );
+                                                }
+                                                return src;
+                                            }, this);
+                                        }
+                                    }
+                                    
+                                ]
+                            });
+                        }
+                    });
                     $("#addNewApp-form").on("submit",function(e){
                         e.preventDefault();
                         var reg =  RegExp(/^http[s]?:\/\//g);
@@ -69,13 +131,19 @@ if($_SESSION["IsLogin"]!==true) {
                         else{
                             url = $("#app_url").val();
                         }
+                        var data = {
+                            "app_id":$("#app_id").val(),
+                            "name":$("#app_name").val(),
+                            "title":$("#app_title").val(),
+                            "url":url,
+                            "icon":$("#app_icon").val()==""?url+"/favicon.ico":$("#app_icon").val()
+                        };
+                        window.AppList.push(data);
                         $.post("Module/auth.php", {
                             method:"updateApps",
-                            app_id:$("#app_id").val(),
-                            app_name:$("#app_name").val(),
-                            app_title:$("#app_title").val(),
-                            app_url:url,
-                            app_icon:$("#app_icon").val()==""?url+"/favicon.ico":$("#app_icon").val()
+                            appjson:{
+                                apps:window.AppList
+                            }
                         },
                         function (data, textStatus, jqXHR) {
                             if(data.res==true){
@@ -92,18 +160,4 @@ if($_SESSION["IsLogin"]!==true) {
         </div>
     </div>
 </div>
-<?php
-    $data = $_SESSION["Json"];
-    $dataArr = json_decode($data,true);
-    echo "<ul class=\"AppsList\">";
-    foreach ($dataArr["apps"] as $key => $value) {
-        $li = "<li data-id=\"".$value["app_id"]."\">
-                    <a href=\"".$value["url"]."\">
-                        <img src=\"".$value["icon"]."\" />
-                        <span>".$value["title"]."</span>
-                    </a>
-                </li>";
-        echo $li;
-    }
-    echo "</ul>";
-?>
+<ul class="AppsList"></ul>

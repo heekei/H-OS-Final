@@ -68,19 +68,20 @@ if($_POST["method"]=="update"){
 }
 //更新应用数据
 if($_POST["method"]=="updateApps"){
-    $AppArr = array(
-                "app_id"=>intval($_POST["app_id"]),
-                "name"=>$_POST["app_name"],
-                "title"=>$_POST["app_title"],
-                "url"=>$_POST["app_url"],
-                "icon"=>$_POST["app_icon"]
-            );
-    $AppJson = json_encode($AppArr);
-    $serverJsonStr = $_SESSION["Json"];//服务器端json字符串
-    $clientJsonArr = json_decode($serverJsonStr,true);//服务器端json字符串转换为数组
-    array_push($clientJsonArr["apps"],$AppArr);//插入新数据
-    $clientJsonStr = json_encode($clientJsonArr);
-    $resUpdateJson = updateApp(urlencode($clientJsonStr));//url转码
+    // $AppArr = array(
+    //             "app_id"=>intval($_POST["app_id"]),
+    //             "name"=>$_POST["app_name"],
+    //             "title"=>$_POST["app_title"],
+    //             "url"=>$_POST["app_url"],
+    //             "icon"=>$_POST["app_icon"]
+    //         );
+    // $AppJson = json_encode($AppArr);
+    $AppJson = json_encode($_POST["appjson"]);
+    // $serverJsonStr = $_SESSION["Json"];//服务器端json字符串
+    // $clientJsonArr = json_decode($serverJsonStr,true);//服务器端json字符串转换为数组
+    // array_push($clientJsonArr["apps"],$AppArr);//插入新数据
+    // $clientJsonStr = json_encode($clientJsonArr);
+    $resUpdateJson = updateApp(urlencode($AppJson));//url转码
     echo $resUpdateJson;
 }
 //更新系统设置

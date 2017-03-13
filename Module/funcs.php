@@ -103,4 +103,14 @@
         $jsonStr =json_encode($arr);
         return $jsonStr;
     }
+
+    function get_JSON(){
+        $UID = $_SESSION["UID"];
+        $uname = $_SESSION["Username"];
+        $tname = $GLOBALS["users"];
+        $sql = "SELECT * FROM `$tname` where Username='$uname'";
+        $result = $GLOBALS["con"]->query($sql);
+        $result = $result->fetch_assoc();
+        return json_encode(urldecode($result["Json"]));
+    }
 ?>

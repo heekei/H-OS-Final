@@ -16,9 +16,11 @@ if($_SESSION["IsLogin"]!==true){
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
+    <link href="css/context.bootstrap.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="js/jquery-1.11.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/context.js"></script>
     <script src="js/index.js"></script>
 </head>
 

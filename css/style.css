@@ -146,6 +146,7 @@ body {
 .AppsList li a img {
   width: 64px;
   height: 64px;
+  border-radius: 100%;
 }
 .AppsList li a span {
   display: block;
