@@ -21,7 +21,7 @@ if($_SESSION["IsLogin"]!==true) {
     </div>
     <div class="form-group">
         <label for="">昵称</label>
-        <input type="text" class="form-control" id="Nickname" value="<?php echo $_SESSION["Nickname"]?>">
+        <input type="text" class="form-control" id="Nickname" value="<?php echo urldecode($_SESSION["Nickname"])?>">
     </div>
 
     <button type="submit" class="btn btn-primary" >保存</button>

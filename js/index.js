@@ -111,7 +111,7 @@ function getSystemPage(url, title) {
     tabpage.className = "tab-page";
     $(".tab-pages").append(tabpage);
     $.ajax({
-        type: "post",
+        type: "get",
         url: url,
         success: function (response) {
             $(tabpage).append(response);
