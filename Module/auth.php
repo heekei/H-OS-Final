@@ -45,16 +45,18 @@ if( isset($_POST["method"]) && $_POST["method"]=="login"){
     else{
         echo json_encode(array("res"=>$arr["res"]));
     }
+    exit;
 }
 //注册
 if( isset($_POST["method"]) && $_POST["method"]=="reg"){
     $resReg = regUser(
-                    $_POST["username"],//?$_POST["username"]:$_SESSION["Username"],
-                    $_POST["password"],//?$_POST["password"]:$_SESSION["Password"],
-                    $_POST["email"],//?$_POST["email"]:$_SESSION["Email"],
-                    urlencode($_POST["nickname"])//?$_POST["nickname"]:$_SESSION["Nickname"]
+                    $_POST["username"],
+                    $_POST["password"],
+                    $_POST["email"],
+                    urlencode($_POST["nickname"])
                 );
     echo $resReg;
+    exit;
 }
 // 更新信息
 if( isset($_POST["method"]) && $_POST["method"]=="update"){
@@ -65,34 +67,13 @@ if( isset($_POST["method"]) && $_POST["method"]=="update"){
                     $_POST["nickname"]?urlencode($_POST["nickname"]):urlencode($_SESSION["Nickname"])
                 );
     echo $resUpdate;
+    exit;
 }
 //更新应用数据
 if( isset($_POST["method"]) && $_POST["method"]=="updateApps" ){
-    // $AppArr = array(
-    //             "app_id"=>intval($_POST["app_id"]),
-    //             "name"=>$_POST["app_name"],
-    //             "title"=>$_POST["app_title"],
-    //             "url"=>$_POST["app_url"],
-    //             "icon"=>$_POST["app_icon"]
-    //         );
-    // $AppJson = json_encode($AppArr);
-    // if(isset($_POST["appjson"])){
         $AppJson = json_encode(@$_POST["appjson"]);
-        // var_dump($AppJson);
         $resUpdateJson = updateApp(urlencode($AppJson));//url转码
         echo $resUpdateJson;
-    // }
-    // else{
-        // echo json_encode(array("res"=>"false","text"=>"错误"));
-    // }
-    // $serverJsonStr = $_SESSION["Json"];//服务器端json字符串
-    // $clientJsonArr = json_decode($serverJsonStr,true);//服务器端json字符串转换为数组
-    // array_push($clientJsonArr["apps"],$AppArr);//插入新数据
-    // $clientJsonStr = json_encode($clientJsonArr);
-    // echo(json_encode($_POST["appjson"]));
-}
-//更新系统设置
-if( isset($_POST["method"]) && $_POST["method"]=="updateSetting"){
-    
+    exit;
 }
 ?>
