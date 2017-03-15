@@ -49,7 +49,7 @@
         }
         else{
             $tname= $GLOBALS["users"];
-            $sql = "INSERT INTO `$tname`(`ID`, `Username`, `Password` , `Email` , `Nickname`,`Json`) VALUES (NULL,'$Username', '$Password', '$Email' ,'$Nickname','')";
+            $sql = "INSERT INTO `$tname`(`ID`, `Username`, `Password` , `Email` , `Nickname`,`Json`) VALUES (NULL,'$Username', '$Password', '$Email' ,'$Nickname','null')";
             $result = $GLOBALS["con"]->query($sql);
             $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
             $jsonStr =json_encode($arr);
@@ -78,22 +78,23 @@
         return $jsonStr;
     }
     // 更新应用信息
-    function updateApp($Json)
-    {
+    function updateApp($Json){
         $UID = $_SESSION["UID"];
         $tname = $GLOBALS["users"];
         $sql = "UPDATE `$tname` SET `Json`='$Json' WHERE `ID`= $UID";
         $result = $GLOBALS["con"]->query($sql);
         if($result==true){
             $_SESSION["Json"]=urldecode($Json);//url解码
+            $arr=array("res"=>$result,"text"=>urldecode($Json));
         }
-        $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
+        else{
+            $arr=array("res"=>$result,"text"=>mysqli_error($GLOBALS["con"]));
+        }
         $jsonStr =json_encode($arr);
         return $jsonStr;
     }
     // 更新系统设置
-    function updateSystemsetting($Json)
-    {
+    function updateSystemsetting($Json){
         $UID = $_SESSION["UID"];
         $tname = $GLOBALS["users"];
         $sql = "UPDATE `$tname` SET `Systemsetting`='$Json' WHERE `ID`= $UID";

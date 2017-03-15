@@ -4,7 +4,7 @@ header("Content-type: application/json ;charset=utf-8");
 //开启 session
 session_start();
 //注销登录
-if($_POST["method"]=="logout"){
+if( isset($_POST["method"]) && $_POST["method"] == "logout") {
     $_SESSION["IsLogin"]=false;
     unset($_SESSION["UID"]);
     unset($_SESSION["Username"]);
@@ -29,7 +29,7 @@ require "funcs.php";
 create_table($pre_name);
 
 //登录
-if($_POST["method"]=="login"){
+if( isset($_POST["method"]) && $_POST["method"]=="login"){
     $IsLogin = doLogin($_POST["username"],$_POST["password"]);//jsonString
     $arr = json_decode($IsLogin,true);//jsonString -> array
     $_SESSION["IsLogin"]=$arr["res"];//记录登录状态
@@ -47,7 +47,7 @@ if($_POST["method"]=="login"){
     }
 }
 //注册
-if($_POST["method"]=="reg"){
+if( isset($_POST["method"]) && $_POST["method"]=="reg"){
     $resReg = regUser(
                     $_POST["username"],//?$_POST["username"]:$_SESSION["Username"],
                     $_POST["password"],//?$_POST["password"]:$_SESSION["Password"],
@@ -57,7 +57,7 @@ if($_POST["method"]=="reg"){
     echo $resReg;
 }
 // 更新信息
-if($_POST["method"]=="update"){
+if( isset($_POST["method"]) && $_POST["method"]=="update"){
     $resUpdate = updateUser($_SESSION["UID"],
                     $_POST["username"]?$_POST["username"]:$_SESSION["Username"],
                     $_POST["password"]?$_POST["password"]:$_SESSION["Password"],
@@ -67,7 +67,7 @@ if($_POST["method"]=="update"){
     echo $resUpdate;
 }
 //更新应用数据
-if($_POST["method"]=="updateApps"){
+if( isset($_POST["method"]) && $_POST["method"]=="updateApps" ){
     // $AppArr = array(
     //             "app_id"=>intval($_POST["app_id"]),
     //             "name"=>$_POST["app_name"],
@@ -76,16 +76,23 @@ if($_POST["method"]=="updateApps"){
     //             "icon"=>$_POST["app_icon"]
     //         );
     // $AppJson = json_encode($AppArr);
-    $AppJson = json_encode($_POST["appjson"]);
+    // if(isset($_POST["appjson"])){
+        $AppJson = json_encode(@$_POST["appjson"]);
+        // var_dump($AppJson);
+        $resUpdateJson = updateApp(urlencode($AppJson));//url转码
+        echo $resUpdateJson;
+    // }
+    // else{
+        // echo json_encode(array("res"=>"false","text"=>"错误"));
+    // }
     // $serverJsonStr = $_SESSION["Json"];//服务器端json字符串
     // $clientJsonArr = json_decode($serverJsonStr,true);//服务器端json字符串转换为数组
     // array_push($clientJsonArr["apps"],$AppArr);//插入新数据
     // $clientJsonStr = json_encode($clientJsonArr);
-    $resUpdateJson = updateApp(urlencode($AppJson));//url转码
-    echo $resUpdateJson;
+    // echo(json_encode($_POST["appjson"]));
 }
 //更新系统设置
-if($_POST["method"]=="updateSetting"){
+if( isset($_POST["method"]) && $_POST["method"]=="updateSetting"){
     
 }
 ?>

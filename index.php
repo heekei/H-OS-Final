@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION["IsLogin"]!==true){
+if(@$_SESSION["IsLogin"]!==true){
 	//重定向浏览器   
 	header("Location: /login.html");
 	//确保重定向后，后续代码不会被执行   
@@ -49,12 +49,12 @@ if($_SESSION["IsLogin"]!==true){
         </nav>
         <div class="main">
             <ul class="nav nav-tabs" role="tablist">
-                <li role="presentation" class="active"><a href="#">控制台</a><i class="icon-remove"></i></li>
+                <li role="presentation" class="active"><a href="#">应用管理</a><i class="icon-remove"></i></li>
             </ul>
             <div class="tab-pages">
                 <div class="tab-page active">
                     <?php 
-                        require "View/Dashboard.php"
+                        require "View/AppManager.php"
                     ?>
                 </div>
             </div>

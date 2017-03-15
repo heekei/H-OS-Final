@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) { //if there's no session_start yet...
+    session_start(); //do this
+}
 if($_SESSION["IsLogin"]!==true) {
     header("Location: /login.html");
 }
@@ -62,25 +64,23 @@ if($_SESSION["IsLogin"]!==true) {
                 <script>
                     // window.AppList =[];
                     $.get("API/get.php",function(data){
-                        if(!data.res){
+                        data = data?JSON.parse(data):{};
+                        // if(!data.res){
                             $(".AppsList").html("")
-                            var JsonObj = JSON.parse(data||"{\"apps\":[]}");
-                            window.AppList = JsonObj.apps;  
+                            var JsonObj = data ||{"apps":[]};
+                            window.AppList = JsonObj.apps||[];
                             context.init({preventDoubleContext: false});
-                            for(var i = 0;i<JsonObj.apps.length;i++){
-                                $(".AppsList").append("<li data-id='"+JsonObj.apps[i].app_id+"' >"+
-                                        "<a href='" + JsonObj.apps[i].url +"'>"+
-                                            "<img src='"+ JsonObj.apps[i].icon +"' />"+
-                                            "<span>"+ JsonObj.apps[i].title +"</span>"+
+                            for(var i = 0;i< AppList.length;i++){
+                                $(".AppsList").append("<li data-id='"+AppList[i].app_id+"' >"+
+                                        "<a href='" + AppList[i].url +"'>"+
+                                            "<img src='"+ AppList[i].icon +"' />"+
+                                            "<span>"+ AppList[i].title +"</span>"+
                                         "</a>"+
                                     "</li>")
                             }
                             context.attach('.AppsList li', {
                                 id:"AppsListContextMenu",
                                 data:[
-                                    /*{
-                                        header:"菜单"
-                                    },*/
                                     {
                                         icon: 'icon-edit',
                                         text: '编辑',
@@ -93,19 +93,19 @@ if($_SESSION["IsLogin"]!==true) {
                                         icon: 'icon-remove',
                                         text: '删除',
                                         action: function(e, selector) { 
-                                            AppList.filter(function (element, index, src) {
-                                                // console.log(element, index)
+                                            AppList.forEach(function (element, index, src) {
                                                 if (selector.data("id") == element.app_id) {
-                                                    src.splice(index, 1);
+                                                    console.log(AppList)
+                                                    AppList.splice(index, 1);
                                                     $.post("Module/auth.php", {
-                                                        method: "updateApps",
-                                                        appjson: {
-                                                            apps: window.AppList
+                                                        method:"updateApps",
+                                                        appjson:{
+                                                            apps:AppList
                                                         }
                                                     },
                                                     function (data, textStatus, jqXHR) {
-                                                        if (data.res == true) {
-                                                            $.get("View/AppManager.php", function (data) {
+                                                        if(data.res==true){
+                                                            $.get("View/AppManager.php",function(data){
                                                                 $(".AppsList").closest(".tab-page").html(data);
                                                             })
                                                         }
@@ -113,14 +113,13 @@ if($_SESSION["IsLogin"]!==true) {
                                                     "json"
                                                     );
                                                 }
-                                                return src;
                                             }, this);
                                         }
                                     }
                                     
                                 ]
                             });
-                        }
+                        // }
                     });
                     $("#addNewApp-form").on("submit",function(e){
                         e.preventDefault();
